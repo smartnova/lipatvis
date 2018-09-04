@@ -1,76 +1,64 @@
-# これはなに？
+# About this reposiotry
 
-文献リポジトリの情報可視化についてのサーベイ論文を見つけたので、その文献リストを作成したものです。
+In 2016, Federico and others have published an impressive survey paper (Federico+ 2016)
 
-- Federico, P., Heimerl, F., Koch, S., and Miksch, S., [/ [A Survey on Visual Approaches for Analysing Scientific Literature and Patents http://dx.doi.org/10.1109/TVCG.2016.2610422] ], IEEE Transactions on Visualisation and Computer Graphics, 2016.
+> Federico, P., Heimerl, F., Koch, S., and Miksch, S., [/ [A Survey on Visual Approaches for Analysing Scientific Literature and Patents http://dx.doi.org/10.1109/TVCG.2016.2610422] ], IEEE Transactions on Visualisation and Computer Graphics, 2016.
 
-単なる文献リストではなく、論文中で使われている文献番号 (Citenoフィールド)、論文中に出現する節、各文献の分類タグの情報が含まれています。
+They also provided [a visual interface](http://ieg.ifs.tuwien.ac.at/%7Efederico/LiPatVis/) to the technical contributions mentioned in their survey using the [SurVis system](https://github.com/fabian-beck/survis).  The SurVis system maintains bibliographic database stored in BibTeX format.  The BibTeX of the above mentioned survey paper can be downleded by clicking on the **download BibTeX** button found in the bottom-left corner of the SurVis view.
 
-このサーベイ論文は文献を番号で引用しており、ハイパーリンクが設定されていないために、各引用の出展を見比べながら読むのがかなり難しいです。その不便を補う目的で、このリストを作成しました。
+## Then why am I distributing my own version of BibTeX?
 
-後述のように Mac ユーザならば BibDesk を利用すれば、快適に閲覧できるような索引情報を追加してあります。
+![The BibTeX file loaded on BibDesk app](https://gyazo.com/c4b7b796abcebc0090428046ac73d81f.png)
 
+The BibTeX distributed via SurVis is great.  It contains all the technical papers mentioned in the paper.  The contents of **Keywords** is based on the taxonomy presented in the paper.  I greatly appreciate the survey authors for sharing bibliographic list and taxonomy in a machine readable form.
 
-# `references.pdf` はなに？
+That said, I wanted to add and modify a bit more information to the BibTeX database.
 
+1. The survey paper employs numeric citation form (like, `[12]`) and does not provide hyperlinks.  It is bothering to identify which paper is mentioned in the paragraph.  My version of BibTeX containes the `Citeno` field, which annotetes the citation number used in the survey paper to each BibTeX entry.
 
-節ごとの引用文献リストをまとめたものです。後述の BibDesk を利用できない人々のために用意しました。
+    My version of BibTeX is optimized for BibDesk, a popular BibTeX management app for Mac.  By sorting the entries according to `Citeno`, you can easily identify the paper refenced in the paper.  If you want to find a peper by citation number, you can use BibDesk's Search box.
 
+1. I have added the section information in the `Keywords` field of the entry.  Simply clicking on the section title that you see in the Caterories section of the sidebar, you immediately show the list of papers mentioned in the section.
 
+    In converse, if you select a peper, you can find which sections for the survey that paper appears.  For example, if you select (Gorg 2013), you see this paper appears in Sections 3.1.2, 3.1.3, 3.4.2, and 3.5.5.
 
-# ここは Mac ユーザ限定：BibDesk での閲覧にあたって
-
-![BibDesk で閲覧した様子](bibdesk.png)
-
-BibDesk は MacTeX が標準装備している強力な文献管理ソフトです。MacユーザでLaTeXを使っているひとであれば、おそらくすでにインストールされているはずです。/Applications/TeX の下をさがしてみて下さい。ネットでも簡単に見つかります。
-
-BibDesk のデフォルトの設定でもそこそこ見られますが、ここで配布しているサーベイの `.bib` については以下の設定を施すとより快適です。
-
-- BibDesk メニューの **View / Group Fields / Add Group Field...** で **Categories** を追加。
-
-- 表のタイトル (First Author, Year, Title などが列挙されている箇所）を右クリックし、 **Add other ...** で `Citeno` （サーベイで用いられている文献番号を記入するために脇田が追加したカスタムフィールド）を追加。追加されたフィールドをドラッグして列の並びの一番左に移動。
-
-# Federico のサーベイ論文を読むとき
-
-- 特定のセクションを読むときは Static 欄の該当するフォルダを選択すると、その節で引用されている論文が一覧できます。
-
-    たとえば、 **Section 3.2: Citations** のなかの **Section 3.2.3 Synoptic Tasks (Patterns)** を読むときは、Static 欄の **3.2.3 Citation - Patterns** を開いて下さい。 この節で引用されている文献 [57, 67, 68, ..., 74] が表示されます。
-
-    なお、論文の節の表題はわかりにくいと思ったので、BibTeX の Static 欄では、著者らが使っていたタグシステムを参考にした、よりわかりやすいものに変更しました。
-
-- 特定の論文の分類を知るには、論文を検索し、選択すると Static 欄のハイライトでその論文を引用している論文の節が示されます。また、Categories 欄にはその論文の分類タグがハイライトされます。
-
-    たとえば、Koch 2011 [23] を選択すると、この論文が 3.1.1 節と 3.5.4 節で言及されていることがわかります。また、分類タグを見ることで、この論文が特許関連の研究であり、引用情報、メタ情報、テキスト情報を扱っており、タスクとして文献検索、関連性探索、テンポラルな探索をサポートしていることがわかります。
-
-- Categories欄の要素を選択することで、個々のタグに分類された文献のリストを取得できます。
-
-    たとえば、Categories欄の **multiple/5-views** を選択すれば、該当する文献 [0, 30, 34, 39, 55, ...] を取得できます。
-
-    AND 検索を要する検索をする場合は、メニューの **Database / New Smart Group...** を使うのかなぁ。。。高度な検索機能があるといいのだけど。
+1. I also added the `N_Secs` field that represents the number of sections that the entry appears in the survey.  For example, the `N_Secs` field for (Gorg 2013) is 4.  If you sort the entries according to `N_Secs` field, you can see the list of papers that the survey authors considers are important.
 
 
 
-# この `.bib` ファイルはどのように作成したのか
+# What is `references.pdf`?
 
-1. [著者のサイト](http://ieg.ifs.tuwien.ac.at/%7Efederico/LiPatVis/) から元データを入手
+My version of BibTeX database is optimized for BibDesk app for Mac.  As I am not a Windows user, I can not name a compatible software on Windows platform.  For the convenience of Windows users, I provided a PDF file named (`references.pdf`).
 
-1. `[jan, ..., dec] => [1, ..., 12]` なマクロの追加
+# Viewing the BibTeX file using BibDesk
 
-    biblatex が嫌うため
+BibDesk is a powerfull browser for BibTeX databases.  It is contained in MacTeX and can be found under `/Applications/TeX`.
 
-1. `address` と `location` を共に有する項目について `address` を削除。
+It is possible to view the BibDesk file but to enjoy the full annotations, please apply the following settings:
 
-    biblatex が嫌うため
+- Add custom fields `Categories` to the group fields by using BibDesk menu: **View / Group Fields / Add Group Field...**
 
-1. Markdown で記述された `annotate` 項目の内容を LaTeX 形式に変換
+    This setting adds section list and taxonomy list to the side bar.
 
-1. Citeno に引用番号を追加：Citeno欄の追加はスクリプト。番号の記入は手作業
+- Right-click on one of the title of the entry list (the main pane of BibDesk) and choose **Add other ...** and add `Citeno` and `N_Secs`.  This settings add the fields as new columns to the right of the column titles.  You may want to move them at the left most position of the table by dragging them to the left.
 
-1. Keywords 欄を Categories 欄に複製
 
-1. 3章の節それぞれについて Static 欄を作成
 
-1. 論文を Static 欄に分類 (DnD)
+# Hints on making use of the BibTeX
 
-1. Static 欄と Categories 欄のラベルをわかりやすいように変更
+- Select a section from the **Categories** from the side bar.  You will see the list of papers mentioned in the section.
 
+    Selecting **3.2.3 Citation - Patterns** will show papers [57, 67, 68, ..., 74].
+
+- Select an entry form the list of the papers and look at the **Categories** in the sidebar.  Sections that this paper is mentioned and paper categories of the paper is highlighted.  Selection of multiple papers highlights such informaiton collectively.
+
+    For example, if I choose (Koch 2011, [23]), I easily find the following facts:
+    
+    - The paper is mentioned in Sections 3.1.1 (Text - Entity) and 3.5.4 (Sequential approaches and multiple views).
+    - It deals with patent visualization (datatype/pattets).
+    - Its targets of analysis are citation, meta information (data/{citations, meta, text})
+    - It supports three kinds of tasks (task/{1-entities, 3-patterns, 4-temporal)
+
+- Select a category entry from the **Categories** in the sidebar.  You find a list of papers that contributes to this category
+
+    For example, if I select **multiple/5-views** category, I find related papers [0, 30, 34, 39, 55, ...].
